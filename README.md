@@ -73,7 +73,7 @@ soroban contract invoke \
   --message "Lanjutkan kerja bagusnya, Bang!"
 ```
 (Catatan: token_address di atas adalah alamat standar untuk Native XLM di Testnet)
-2. Cek Total Dana Terkumpul
+###2. Cek Total Dana Terkumpul
 
 ```bash
 soroban contract invoke \
@@ -83,7 +83,7 @@ soroban contract invoke \
   get_total
 ```
 
-3. Lihat Riwayat Donatur
+###3. Lihat Riwayat Donatur
 
 ```bash
 soroban contract invoke \
@@ -92,7 +92,7 @@ soroban contract invoke \
   -- \
   get_history
 ```
-🎨 Integrasi Frontend
+##🎨 Integrasi Frontend
 
 Untuk menghubungkan dApp ini dengan website Anda, gunakan alur berikut:
 
@@ -102,11 +102,15 @@ Untuk menghubungkan dApp ini dengan website Anda, gunakan alur berikut:
 
     Sign Transaction: Saat user menekan tombol "Send Tip", buatlah transaksi Soroban, kirim ke Freighter untuk ditandatangani, dan kirim ke jaringan Stellar.
 
-🔒 Keamanan & Batasan
+##🔒 Keamanan & Batasan
 
     Re-entrancy: Kontrak dilindungi dari serangan re-entrancy oleh protokol Soroban.
 
     Stroops Precision: Selalu ingat bahwa 1 XLM = 10.000.000 Stroops. Pastikan konversi di frontend tepat.
+
+##Screenshot
+[Expert](screenshot-expert.png)
+[lab](screenshot-lab.png)
 
 Project Info:
 Dibuat sebagai bagian dari tugas Workshop dApp Stellar.
