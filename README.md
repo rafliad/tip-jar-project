@@ -1,118 +1,113 @@
-# Stellar Notes DApp
+# 🌟 Stellar Micro-Tip Jar (Soroban)
 
-**Stellar Notes DApp** - Blockchain-Based Decentralized Note-Taking System
+**Stellar Micro-Tip Jar** adalah sebuah *Smart Contract* berbasis Soroban (Stellar) yang dirancang untuk memfasilitasi sistem apresiasi digital (tip) secara terdesentralisasi. Aplikasi ini memungkinkan pengguna untuk mengirimkan XLM atau token lainnya sebagai bentuk dukungan langsung kepada pengembang atau pembuat konten, lengkap dengan pesan dukungan yang tercatat secara permanen di blockchain.
 
-## Project Description
+## 🚀 Informasi Deployment
 
-Stellar Notes DApp is a decentralized smart contract solution built on the Stellar blockchain using Soroban SDK. It provides a secure, immutable platform for managing personal notes directly on the blockchain. The contract ensures that your data is stored transparently and is only manageable through predefined smart contract functions, eliminating reliance on centralized database providers.
+Kontrak ini telah berhasil di-deploy pada jaringan **Stellar Testnet**.
 
-The system allows users to create, view, and delete notes, leveraging the efficiency and security of the Stellar network. Each note is uniquely identified and stored within the contract's instance storage, ensuring data persistence and reliability.
+* **Contract ID:** `CBQDIPM6WQC3KB6AWXY3A3CXX3KE2UC3KUO7GQFR5ZKCDUD47H3EXV34`
 
-## Project Vision
+* **Bahasa Pemrograman:** Rust
 
-Our vision is to revolutionize personal productivity in the digital age by:
+* **SDK:** Soroban SDK (v20+)
 
-- **Decentralizing Data**: Moving note-taking from centralized servers to a global, distributed blockchain
-- **Ensuring Ownership**: Empowering users to have complete control and ownership over their digital thoughts and information
-- **Guaranteeing Immutability**: Providing a permanent, tamper-proof record of notes that cannot be altered or deleted by third parties
-- **Enhancing Privacy**: Leveraging blockchain security to protect personal information from unauthorized access
-- **Building Trustless Systems**: Creating a platform where data integrity is guaranteed by code, not by company promises
+* **Network:** Testnet
 
-We envision a future where digital information is truly personal and sovereign, empowering individuals with complete autonomy over their digital assets.
+## ✨ Fitur Utama
 
-## Key Features
+1. **Sistem Escrow Otomatis:** Menangani perpindahan dana dari dompet pendonor ke kontrak secara aman tanpa perantara.
 
-### 1. **Simple Note Creation**
+2. **Pesan Dukungan On-Chain:** Setiap transaksi menyimpan `String` pesan yang terikat dengan ID transaksi, menciptakan interaksi sosial yang transparan.
 
-- Create notes with just one function call
-- Specify title and content for each note
-- Automated ID generation for unique identification
-- Persistent storage on the Stellar blockchain
+3. **Audit Saldo Real-time:** Siapa pun dapat memverifikasi total dana yang terkumpul dan melihat riwayat donasi secara terbuka.
 
-### 2. **Efficient Data Retrieval**
+4. **Keamanan Berlapis:** Mengintegrasikan `require_auth()` untuk memastikan validitas identitas pengirim melalui **Freighter Wallet**.
 
-- Fetch all stored notes in a single call
-- Structured data representation for easy frontend integration
-- Quick access to your entire note collection
-- Real-time synchronization with the blockchain state
+## 🛠 Arsitektur Teknis
 
-### 3. **Secure Deletion**
+### Struktur Data
 
-- Remove specific notes using their unique IDs
-- Permanent removal from the contract storage
-- Clean and efficient storage management
-- Immediate update of the note list after deletion
+Kontrak menggunakan struktur data `TipEntry` untuk menyimpan informasi setiap donasi:
 
-### 4. **Transparency and Security**
+* `donor`: Alamat publik (Address) pengirim.
 
-- View all note activities on the blockchain
-- Blockchain-based verification of all storage actions
-- Immutable records of note creation and deletion
-- Protected against unauthorized modifications
+* `amount`: Jumlah token dalam satuan *stroops* (i128).
 
-### 5. **Stellar Network Integration**
+* `message`: Pesan teks pendek (String).
 
-- Leverages the high speed and low cost of Stellar
-- Built using the modern Soroban Smart Contract SDK
-- Scalable architecture for growing note collections
-- Interoperable with other Stellar-based services
+### Mekanisme Penyimpanan (Storage)
 
-## Contract Details
+Data disimpan menggunakan `Instance Storage` pada Soroban untuk efisiensi biaya gas dan aksesibilitas data yang persisten selama kontrak masih aktif.
 
-- Contract Address: CBLU4IUASQ4WUMOXBFLZRSBBLILGOH33GS4LUPKFBCCCMJCDQNMF7G2M
-  ![alt text](screenshot.png)
+## 📋 Prasyarat Sistem
 
-## Future Scope
+Sebelum berinteraksi dengan kontrak ini, pastikan Anda telah menginstal:
 
-### Short-Term Enhancements
+* **Rust & Cargo:** Toolchain bahasa Rust terbaru.
 
-1. **Note Encryption**: Support for end-to-end encryption of note content for enhanced privacy
-2. **Category Management**: Add tags and categories to organize notes efficiently
-3. **Rich Text Support**: Extend support beyond plain text to include Markdown and formatted content
-4. **Search Functionality**: Implement advanced search filters for large note collections
+* **Soroban CLI:** Untuk interaksi via terminal.
 
-### Medium-Term Development
+* **Stellar Laboratory:** Untuk memantau transaksi di Testnet.
 
-5. **Collaborative Notes**: Implement multi-signature requirements for shared or collaborative note-taking
-   - Shared access for multiple addresses
-   - Permission-based editing and viewing
-   - Version history tracking
-6. **Notification System**: Off-chain bridge to alert users of new updates or shared notes
-7. **Asset Attachment**: Capability to attach digital assets or tokens to specific notes
-8. **Inter-Contract Integration**: Allow other smart contracts to interact with and store data in the notes contract
+* **Freighter Wallet:** Jika ingin menggunakan antarmuka web.
 
-### Long-Term Vision
+## 💻 Panduan Penggunaan CLI
 
-9. **Cross-Chain Synchronization**: Extend note storage to multiple blockchain networks
-10. **Decentralized UI Hosting**: Host the frontend on IPFS or similar decentralized platforms
-11. **AI-Powered Summarization**: Optional integration with AI to help users summarize their notes
-12. **Privacy Layers**: Implement zero-knowledge proofs for completely private note content
-13. **DAO Governance**: Community-driven protocol improvements and feature prioritization
-14. **Identity Management**: Integration with decentralized identity (DID) systems for user management
+Gunakan perintah di bawah ini untuk berinteraksi langsung dengan kontrak dari terminal Anda.
 
-### Enterprise Features
+### 1. Inisialisasi Tip (Kirim Dana)
 
-15. **Corporate Documentation**: Adapt the system for secure corporate record-keeping
-16. **Immutable Logging**: Create time-locked logs for audit purposes
-17. **Automated Reporting**: Automatic note triggers for periodic reporting
-18. **Multi-Language Support**: Expand accessibility with internationalization
+Pastikan Anda memiliki saldo XLM Testnet yang cukup.
 
----
+```bash
+soroban contract invoke \
+  --id CBQDIPM6WQC3KB6AWXY3A3CXX3KE2UC3KUO7GQFR5ZKCDUD47H3EXV34 \
+  --source <IDENTITAS_ANDA> \
+  --network testnet \
+  -- \
+  send_tip \
+  --donor <ALAMAT_ANDA> \
+  --token_address CDLZ677S3GZ25AEEIWGFAWSWSRH5G6HIOCC7K7O4S7J6R3B6R2L5M5J4 \
+  --amount 50000000 \
+  --message "Lanjutkan kerja bagusnya, Bang!"
+```
+(Catatan: token_address di atas adalah alamat standar untuk Native XLM di Testnet)
+2. Cek Total Dana Terkumpul
 
-## Technical Requirements
+```bash
+soroban contract invoke \
+  --id CBQDIPM6WQC3KB6AWXY3A3CXX3KE2UC3KUO7GQFR5ZKCDUD47H3EXV34 \
+  --network testnet \
+  -- \
+  get_total
+```
 
-- Soroban SDK
-- Rust programming language
-- Stellar blockchain network
+3. Lihat Riwayat Donatur
 
-## Getting Started
+```bash
+soroban contract invoke \
+  --id CBQDIPM6WQC3KB6AWXY3A3CXX3KE2UC3KUO7GQFR5ZKCDUD47H3EXV34 \
+  --network testnet \
+  -- \
+  get_history
+```
+🎨 Integrasi Frontend
 
-Deploy the smart contract to Stellar's Soroban network and interact with it using the three main functions:
+Untuk menghubungkan dApp ini dengan website Anda, gunakan alur berikut:
 
-- `create_note()` - Create a new note with a title and content
-- `get_notes()` - Retrieve all stored notes from the contract
-- `delete_note()` - Remove a specific note by its ID
+    Connect Wallet: Minta izin akses ke Freighter Wallet.
 
----
+    Fetch Data: Panggil get_total dan get_history saat halaman dimuat untuk menampilkan statistik.
 
-**Stellar Notes DApp** - Securing Your Thoughts on the Blockchain
+    Sign Transaction: Saat user menekan tombol "Send Tip", buatlah transaksi Soroban, kirim ke Freighter untuk ditandatangani, dan kirim ke jaringan Stellar.
+
+🔒 Keamanan & Batasan
+
+    Re-entrancy: Kontrak dilindungi dari serangan re-entrancy oleh protokol Soroban.
+
+    Stroops Precision: Selalu ingat bahwa 1 XLM = 10.000.000 Stroops. Pastikan konversi di frontend tepat.
+
+Project Info:
+Dibuat sebagai bagian dari tugas Workshop dApp Stellar.
+© 2024 Developer Community. 🚀
